@@ -1,0 +1,11 @@
+MEDIUM:
+Assume you are given the table below on Uber transactions made by users. Write a query to obtain the third transaction of every user. Output the user id, spend and transaction date.
+
+Code:
+
+with cte as (select *, row_number() OVER(PARTITION BY user_id ORDER BY transaction_date) as tran_num
+from transactions)
+
+select user_id, spend, transaction_date
+from cte
+where tran_num=3
